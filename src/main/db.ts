@@ -2,7 +2,11 @@ import {Sequelize} from "sequelize";
 import pg = require('pg');
 require('dotenv').config()
 
+console.log("CWD:")
 console.log(process.cwd());
+console.log("ENV:")
+console.log(process.env)
+
 
 export const db = new Sequelize({
     "username": process.env.DB_USER,

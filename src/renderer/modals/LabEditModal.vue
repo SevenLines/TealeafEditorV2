@@ -6,6 +6,7 @@ import {LabDTO} from "../types";
 import useDisciplineStore from "../store/disciplineStore";
 import {storeToRefs} from "pinia";
 import MarkdownEditor from "../components/MarkdownEditor.vue";
+import BCheckbox from "../components/BCheckbox.vue";
 
 const disciplineStore = useDisciplineStore();
 
@@ -23,6 +24,7 @@ const labToEditForm = ref<LabDTO>({
     title: "",
     type: 0,
     id: 0,
+    secret: false,
     modified_at: new Date()
 })
 

@@ -2,16 +2,7 @@ import {Sequelize} from "sequelize";
 import pg = require('pg');
 require('dotenv').config()
 
-// const sequelize = {
-//     username: "postgres",
-//     password: "123",
-//     database: "tealeaf2019",
-//     port: 5432,
-//     host: "localhost",
-//     dialect: "postgres",
-// }
-//
-// console.log(sequelize)
+console.log(process.cwd());
 
 export const db = new Sequelize({
     "username": process.env.DB_USER,

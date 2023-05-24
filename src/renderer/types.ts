@@ -23,6 +23,7 @@ export interface LabDTO {
     modified_at: Date;
     discipline_id: number;
     visible: boolean;
+    secret: boolean;
 }
 
 export interface Subtask {

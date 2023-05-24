@@ -81,6 +81,15 @@ async function onToggleEye(lab: LabDTO) {
     await refetchLabs();
 }
 
+async function onToggleSecret(lab: LabDTO) {
+    await labsStore.upsertLab({
+        ...lab,
+        secret: !lab.secret
+    })
+    await refetchLabs();
+}
+
+
 async function onLabTaskSortClick() {
     // (this.$refs.labTaskSorterRef as any).show();
 }
@@ -132,6 +141,12 @@ async function onLabSortEnd(event: any) {
 
 async function onGenerateClick() {
 
+}
+
+async function onRunProcessClick() {
+    if (activeDiscipline.value) {
+        window.electronAPI.deployRunJekyllProcess(activeDiscipline.value.id)
+    }
 }
 
 async function onDeployClick() {
@@ -256,10 +271,9 @@ async function onDeployClick() {
                     <button class="ms-2 btn btn-warning" @click="onGenerateClick">
                         Сгенерировать
                     </button>
-                    <!--                    <button class="ml-2" variant="warning" @click="onRunProcessClick">-->
-                    <!--                        <span v-if="!jekyllProcess">Запустить</span>-->
-                    <!--                        <span v-else>Остановить</span>-->
-                    <!--                    </button>-->
+                    <button class="ml-2 btn btn-warning" @click="onRunProcessClick">
+                        <span >Запустить</span>
+                    </button>
                 </div>
                 <button class="ms-2 btn btn-danger" @click="onDeployClick">
                     Задеплоить
@@ -296,6 +310,10 @@ async function onDeployClick() {
                                         @click="onToggleEye(element)">
                                     <i class="fad"
                                        :class="{'fa-eye': element.visible, 'fa-eye-slash': !element.visible}"></i>
+                                </button>
+                                 <button class="ms-2 btn btn-sm btn-outline-info"
+                                        @click="onToggleSecret(element)">
+                                    <i :class="{'fa-duotone fa-key': element.secret, 'fa-light fa-key': !element.secret}"></i>
                                 </button>
                                 <button class="ms-2  btn btn-sm btn-outline-info"
                                         @click="onLabEditClick(element)">

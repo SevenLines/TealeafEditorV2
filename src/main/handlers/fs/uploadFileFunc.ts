@@ -21,6 +21,8 @@ export default async function uploadFileFunc(event, file: {
         arrayBuffer = await fsPromises.readFile(file.path);
     }
 
+    console.log(arrayBuffer);
+
     let files = fs.readdirSync(folder);
     let numbers = files.map(x => x.match(/(\d+)_(.*)/i)).filter(x => x).map((x: any) => {
         return +x[1];

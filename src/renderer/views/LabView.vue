@@ -16,6 +16,7 @@ import BFormSelect from "../components/BFormSelect.vue";
 import {ComplexityTypes} from "../consts";
 import _ from "lodash";
 import CopyTasksModal from "../modals/CopyTasksModal.vue";
+import useToastsStore from "../store/toastsStore";
 
 const props = defineProps({
     id: {
@@ -26,6 +27,7 @@ const props = defineProps({
 const disciplineStore = useDisciplineStore();
 const labsStore = useLabsStore();
 const tasksStore = useTasksStore();
+const toastsStore = useToastsStore();
 
 const {
     activeLab
@@ -384,8 +386,8 @@ async function onAddTaskClick() {
     flex-basis: 0;
     flex-grow: 1;
     visibility: visible;
-    width: 500px;
-    max-width: 500px;
+    width: 700px;
+    max-width: 700px;
 
     .task-editor-inner {
       padding: 1rem;

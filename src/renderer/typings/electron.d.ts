@@ -1,6 +1,4 @@
 import {DisciplineDTO, LabDTO, TaskDTO, TaskGroupDTO} from "../types";
-import disciplineCopy from "../../main/handlers/db/disciplineCopy";
-import openUrlInBrowser from "../../main/handlers/fs/openUrlInBrowser";
 
 /**
  * Should match main/preload.ts for typescript support in renderer
@@ -9,6 +7,8 @@ export default interface ElectronApi {
     sendMessage: (message: string) => void;
     onPushJekyllLogItem: (callback: Function) => void;
     deployRunDeployProcess: (disciplineId: number, createGitCommit: boolean) => void;
+    deployRunJekyllProcess: (disciplineId: number) => void;
+    deployStopJekyllProcess: (disciplineId: number) => void;
 
     dbFetchDisciplines: () => Promise<DisciplineDTO[]>
     dbFetchLabs: (disciplineId: number) => Promise<LabDTO[]>;
@@ -41,6 +41,8 @@ export default interface ElectronApi {
         name: string,
         path: string
     }, jekyll_folder: string, fileObject: File) => Promise<{link: string}>;
+
+    globalShared: () => any
 }
 
 declare global {

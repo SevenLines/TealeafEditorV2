@@ -62,6 +62,9 @@ export default class Lab extends Model {
     @Column(DataTypes.BOOLEAN)
     visible!: boolean;
 
+    @Column(DataTypes.BOOLEAN)
+    secret!: boolean;
+
     getTasks!: { (params?: any): Promise<Array<Task>> };
     Tasks!: Array<Task>;
     getDiscipline!: Function;

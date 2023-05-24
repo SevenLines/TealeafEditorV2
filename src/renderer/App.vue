@@ -59,6 +59,7 @@ const {
 <style lang="scss">
 @import "assets/bootstrap-dark-theme.scss";
 @import "assets/consts.scss";
+@import "toastify-js/src/toastify.css";
 
 .fade-enter-active,
 .fade-leave-active {

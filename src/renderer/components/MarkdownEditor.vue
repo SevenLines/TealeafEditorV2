@@ -51,11 +51,8 @@ function createMde() {
         sideBySideFullscreen: props.sideBySideFullscreen,
         async imageUploadFunction(file: File, onSuccess: any) {
             let buffer = await file.arrayBuffer()
-            console.log(buffer);
-            if (props.uploadFunc != null) {
-                let data = await uploadFileFunc(file, buffer);
-                onSuccess(data.link);
-            }
+            let data = await uploadFileFunc(file, buffer);
+            onSuccess(data.link);
         },
         previewRender(plainText: string) {
             let result: string = "";

@@ -107,10 +107,10 @@ function onSaveClick(buttonClicked: any) {
             </div>
         </div>
         <div class="row align-items-end">
-            <div class="col">
+            <div class="col-6">
                 <h2>Описание</h2>
             </div>
-            <div class="col">
+            <div class="col-6">
                 <label>
                 <b-checkbox class="ml-4" v-model="form.show_help_in_modal">модальное окно</b-checkbox>
                     <h2>Подсказка</h2>
@@ -118,14 +118,14 @@ function onSaveClick(buttonClicked: any) {
             </div>
         </div>
         <div class="row">
-            <div class="col">
+            <div class="col-6">
 
                 <markdown-editor v-model="form.content"
                                  min-height="200px"
                                  max-height="200px"
                 />
             </div>
-            <div class="col">
+            <div class="col-6">
 
                 <markdown-editor v-model="form.additional_content"
                                  min-height="200px"

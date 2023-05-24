@@ -1,19 +1,21 @@
 import {app, BrowserWindow, contextBridge, ipcMain, ipcRenderer, session} from 'electron';
 import {join} from 'path';
+import global from "./global";
 import HANDLERS from "./preload";
 
 
 function createWindow () {
   const mainWindow = new BrowserWindow({
     width: 1540,
-    height: 720,
+    height: 920,
     webPreferences: {
       preload: join(__dirname, 'preload.js'),
       nodeIntegration: false,
       contextIsolation: true,
       webSecurity: false,
       // webviewTag: true,
-    }
+    },
+    autoHideMenuBar: true,
   });
 
   if (process.env.NODE_ENV === 'development') {

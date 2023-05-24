@@ -32,6 +32,8 @@ const HANDLERS = [
     "fs:openUrlInBrowser",
 
     "deploy:runDeployProcess",
+    "deploy:runJekyllProcess",
+    "deploy:stopJekyllProcess",
 ]
 
 
@@ -42,7 +44,9 @@ try {
             console.log(args)
             callback(event, args)
         }),
-
+        globalShared: () => {
+            return global.shared;
+        }
     }
 
     for (let h of HANDLERS) {

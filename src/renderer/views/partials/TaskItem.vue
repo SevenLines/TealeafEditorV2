@@ -115,7 +115,7 @@ const klass = computed(() => {
 
 const style = computed(() => {
     return {
-        opacity: props.activeTask == null || props.activeTask === props.task ? "100%" : "50%"
+        opacity: props.activeTask == null || props.activeTask.id === props.task.id ? "100%" : "50%"
     }
 })
 </script>

@@ -17,6 +17,7 @@ function createWindow () {
     },
     autoHideMenuBar: true,
   });
+  mainWindow.removeMenu()
 
   if (process.env.NODE_ENV === 'development') {
     const rendererPort = process.argv[2];

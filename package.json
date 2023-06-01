@@ -31,6 +31,7 @@
     "bootstrap": "^5.2.3",
     "dotenv": "^16.0.3",
     "easymde": "^2.18.0",
+    "electron-settings": "^4.0.2",
     "fs-extra": "^11.1.1",
     "gsap": "^3.11.5",
     "highlight.js": "^11.8.0",

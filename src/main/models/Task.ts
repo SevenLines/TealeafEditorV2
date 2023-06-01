@@ -3,16 +3,9 @@ const {DataTypes} = require('sequelize');
 import {db} from '../db';
 import {InstanceDestroyOptions, Model} from "sequelize";
 import {Column, Table} from "./decorators";
+import {StudentInfo, Subtask} from "./task.entity";
 
 
-export interface Subtask {
-    content: string;
-}
-
-export interface StudentInfo {
-    id: number;
-    date_done: Date;
-}
 
 @Table({
     sequelize: db,

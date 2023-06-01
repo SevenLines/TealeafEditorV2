@@ -48,6 +48,7 @@
     "sortablejs-vue3": "^1.2.9",
     "toastify-js": "^1.12.0",
     "tree-kill": "^1.2.2",
+    "typeorm": "^0.3.16",
     "vue": "^3.2.47",
     "vue-router": "^4.2.1"
   }

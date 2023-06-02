@@ -10,7 +10,6 @@ import path, {join} from "path";
 import fsExtra from "fs-extra";
 import setDefault, {getFiles} from "../utils";
 import yaml from "js-yaml";
-import {DataTypes} from "sequelize";
 import {Lab} from "./lab.entity";
 import _ from "lodash";
 import TaskGroup from "./task_group.entity";

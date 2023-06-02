@@ -1,6 +1,4 @@
-import {db} from "../db";
 import {Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
-import {Task} from "./task.entity";
 import {Lab} from "./lab.entity";
 
 

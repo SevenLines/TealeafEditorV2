@@ -3,7 +3,6 @@ import {
     Column,
     PrimaryGeneratedColumn, ManyToOne, JoinColumn,
 } from "typeorm"
-import {DataTypes} from "sequelize";
 import {Lab} from "./lab.entity";
 export interface Subtask {
     content: string;

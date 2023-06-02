@@ -2,7 +2,6 @@ import {app, BrowserWindow, contextBridge, ipcMain, ipcRenderer, session} from '
 import {join} from 'path';
 import global from "./global";
 import HANDLERS from "./preload";
-import {db} from "./db";
 import dataSource from "./typeorm.config";
 
 

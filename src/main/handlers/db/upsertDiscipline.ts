@@ -1,5 +1,4 @@
 import dataSource from "../../typeorm.config";
-import {Lab} from "../../models/lab.entity";
 import {Discipline} from "../../models/discipline.entity";
 
 export default async function upsertDiscipline(event, discipline: Discipline): Promise<Discipline | null> {

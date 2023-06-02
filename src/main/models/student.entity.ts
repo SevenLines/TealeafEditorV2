@@ -1,4 +1,3 @@
-import {Model} from "sequelize";
 import {Column, Entity, PrimaryGeneratedColumn} from "typeorm";
 
 @Entity({

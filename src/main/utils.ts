@@ -3,7 +3,7 @@ import fs from "fs";
 import {Buffer} from "buffer";
 import {marked} from "marked";
 import _ from 'lodash'
-import {exec, ExecOptions, spawn, SpawnOptions} from "child_process";
+import {exec, spawn} from "child_process";
 
 const {resolve} = require('path');
 const {readdir} = require('fs').promises;

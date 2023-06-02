@@ -1,5 +1,4 @@
 import dataSource from "../../typeorm.config";
-import {Lab} from "../../models/lab.entity";
 import {Task} from "../../models/task.entity";
 
 export default async function upsertTask(event, task: Task): Promise<Task | null> {

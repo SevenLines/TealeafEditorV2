@@ -1,5 +1,4 @@
 import {contextBridge, ipcRenderer} from 'electron';
-import disciplineCopy from "./handlers/db/disciplineCopy";
 
 const HANDLERS = [
     "db:fetchDisciplines",

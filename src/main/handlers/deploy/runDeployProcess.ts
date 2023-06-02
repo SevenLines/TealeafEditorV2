@@ -1,12 +1,13 @@
 import path from "path";
 import child_process from "child_process";
 import {spawnAsync} from "../../utils";
-import Discipline from "../../models/Discipline";
 import IpcMainInvokeEvent = Electron.IpcMainInvokeEvent;
+import {Discipline} from "../../models/discipline.entity";
+import dataSource from "../../typeorm.config";
 
 export default async function runDeployProcess(event:IpcMainInvokeEvent, disciplineId: number, createGitCommit: boolean)
 {
-    let activeDiscipline = await Discipline.findByPk(disciplineId)
+    let activeDiscipline = await dataSource.manager.findOneBy(Discipline, {id: disciplineId})
     if (!activeDiscipline)
         return
 

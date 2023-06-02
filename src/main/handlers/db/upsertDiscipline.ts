@@ -1,17 +1,16 @@
-import Discipline from "../../models/Discipline";
+import dataSource from "../../typeorm.config";
+import {Lab} from "../../models/lab.entity";
+import {Discipline} from "../../models/discipline.entity";
 
-export default async function upsertDiscipline(event, disciplineDTO: any): Promise<Discipline | null> {
-    if (disciplineDTO.id) {
-        let discipline = await Discipline.findByPk(disciplineDTO.id)
-        if (discipline) {
-            discipline.set(disciplineDTO)
-            await discipline.save()
-            return discipline.toJSON()
-        }
+export default async function upsertDiscipline(event, discipline: Discipline): Promise<Discipline | null> {
+    if (discipline.id) {
+        discipline.modified_at = new Date()
+        await dataSource.manager.update(Discipline,  discipline.id, discipline)
+    } else {
+        discipline.modified_at = new Date()
+        discipline = (await dataSource.manager.insert(Discipline, discipline)).raw
     }
-    return await Discipline.create({
-        ...disciplineDTO
-    })
+    return discipline;
 }
 
 

@@ -2,10 +2,23 @@ import {
     Entity,
     Column,
     PrimaryGeneratedColumn,
+    OneToMany,
+    ManyToOne,
+    JoinColumn,
+    AfterUpdate,
+    AfterRemove,
+    UpdateDateColumn,
+    CreateDateColumn, AfterInsert,
 } from "typeorm"
+import {Task} from "./task.entity";
+import dataSource from "../typeorm.config";
+import {Discipline} from "./discipline.entity";
+import TaskGroup from "./task_group.entity";
 
 
-@Entity()
+@Entity({
+    name: "lessons_lab"
+})
 export class Lab {
     @PrimaryGeneratedColumn()
     id: number;
@@ -37,8 +50,13 @@ export class Lab {
     @Column()
     remark: string;
 
-    @Column()
+    @UpdateDateColumn()
+    @CreateDateColumn()
     modified_at: Date;
+
+    @ManyToOne(() => Discipline, (discipline) => discipline.labs)
+    @JoinColumn({ name: "discipline_id" })
+    discipline: Discipline;
 
     @Column()
     discipline_id: number;
@@ -49,23 +67,33 @@ export class Lab {
     @Column()
     secret: boolean;
 
+    @OneToMany(() => Task, (task) => task.lab)
+    tasks: Task[]
+
+    @OneToMany(() => TaskGroup, (group) => group.lab)
+    groups: TaskGroup[]
+
     async copy(labParams?: any) {
-        let newLab = await Lab.create({
-            ...this.get({plain: true}),
+        let newLab = (await dataSource.manager.insert(Lab, {
+            ...this,
             ...labParams,
             id: undefined
-        });
+        })).raw;
 
-        let tasks = await this.getTasks()
+        let tasks = await dataSource.manager.find(Task, {
+            where: {
+                lab_id: this.id
+            }
+        })
         let newTasks = tasks.map(t => {
             return {
-                ...t.get({plain: true}),
+                ...t,
                 lab_id: newLab.id,
                 LabId: newLab.id,
                 id: undefined,
             }
         })
-        await Task.bulkCreate(newTasks)
+        await dataSource.manager.insert(Task, newTasks)
         return newLab
     }
 
@@ -82,10 +110,24 @@ export class Lab {
             }
         }
 
-        for (const task of await this.getTasks()) {
+        let tasks = await dataSource.manager.find(Task, {
+            where: {lab_id: this.id}
+        })
+
+        for (const task of tasks) {
             images.push(...task.getImages());
         }
 
         return images;
+    }
+
+    @AfterUpdate()
+    @AfterRemove()
+    @AfterInsert()
+    async rebuild() {
+        let discipline = await dataSource.manager.findOneBy(Discipline, {id: this.discipline_id})
+        if (discipline) {
+            await discipline.generateLabsYaml()
+        }
     }
 }

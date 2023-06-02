@@ -2,13 +2,14 @@ import path from "path";
 import child_process from "child_process";
 import {spawnAsync} from "../../utils";
 const kill = require('tree-kill');
-import Discipline from "../../models/Discipline";
 import IpcMainInvokeEvent = Electron.IpcMainInvokeEvent;
+import dataSource from "../../typeorm.config";
+import {Discipline} from "../../models/discipline.entity";
 
 
 export default async function stopJekyllProcess(event:IpcMainInvokeEvent, disciplineId)
 {
-    let activeDiscipline = await Discipline.findByPk(disciplineId)
+    let activeDiscipline = await dataSource.manager.findOneBy(Discipline, {id: disciplineId})
     if (!activeDiscipline)
         return
 

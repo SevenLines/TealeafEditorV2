@@ -1,6 +1,7 @@
-import Discipline from "../../models/Discipline";
+import dataSource from "../../typeorm.config";
+import {Discipline} from "../../models/discipline.entity";
 
 export default async function disciplineRemoveUnusedImages(disciplineId: number) {
-    let discipline = await Discipline.findByPk(disciplineId)
+    let discipline = await dataSource.manager.findOneBy(Discipline, {id: disciplineId})
     return discipline?.removeUnusedImages();
 }

@@ -1,8 +1,8 @@
-import Lab from "../../models/Lab";
-import Discipline from "../../models/Discipline";
+import dataSource from "../../typeorm.config";
+import {Discipline} from "../../models/discipline.entity";
 
 export default async function deleteDiscipline(event, disciplineId: number) {
-    await Discipline.destroy({where: {id: disciplineId}})
+    await dataSource.getRepository(Discipline).delete({id: disciplineId})
 }
 
 

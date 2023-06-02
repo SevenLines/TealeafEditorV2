@@ -3,6 +3,7 @@ import {join} from 'path';
 import global from "./global";
 import HANDLERS from "./preload";
 import {db} from "./db";
+import dataSource from "./typeorm.config";
 
 
 function createWindow () {
@@ -18,7 +19,7 @@ function createWindow () {
     },
     autoHideMenuBar: true,
   });
-  mainWindow.removeMenu()
+  // mainWindow.removeMenu()
 
   if (process.env.NODE_ENV === 'development') {
     const rendererPort = process.argv[2];
@@ -30,6 +31,8 @@ function createWindow () {
 }
 
 app.whenReady().then(async () => {
+  await dataSource.initialize()
+
   createWindow();
 
   session.defaultSession.webRequest.onHeadersReceived((details, callback) => {

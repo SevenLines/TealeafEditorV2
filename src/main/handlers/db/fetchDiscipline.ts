@@ -1,8 +1,8 @@
-import Discipline from "../../models/Discipline";
-import Lab from "../../models/Lab";
+import {Discipline} from "../../models/discipline.entity";
+import dataSource from "../../typeorm.config";
 
 export default async function fetchDiscipline(event, id: number): Promise<Discipline | null> {
-    return await Discipline.findByPk(id, {raw: true});
+    return await dataSource.manager.findOneBy(Discipline, {id: id});
 }
 
 

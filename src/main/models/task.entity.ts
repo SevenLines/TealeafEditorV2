@@ -1,9 +1,10 @@
 import {
     Entity,
     Column,
-    PrimaryGeneratedColumn,
+    PrimaryGeneratedColumn, ManyToOne, JoinColumn,
 } from "typeorm"
 import {DataTypes} from "sequelize";
+import {Lab} from "./lab.entity";
 export interface Subtask {
     content: string;
 }
@@ -14,7 +15,9 @@ export interface StudentInfo {
 }
 
 
-@Entity()
+@Entity({
+    name: "lessons_task"
+})
 export class Task {
     @PrimaryGeneratedColumn()
     id: number;
@@ -46,6 +49,10 @@ export class Task {
     @Column()
     lab_id: number;
 
+    @ManyToOne(() => Lab, (lab) => lab.tasks)
+    @JoinColumn({ name: "lab_id" })
+    lab: Lab;
+
     @Column()
     custom_class: string;
 
@@ -60,4 +67,22 @@ export class Task {
 
     @Column()
     show_help_in_modal: boolean;
+
+    getImages(): Array<string> {
+        let images: Array<string> = [];
+
+        let reg = /\!\[.*?\]\((.*?)\)/g;
+        let result = []
+        for(const key of ['content', 'additional_content', "subtasks"]) {
+            if (!this[key])
+                continue
+
+            result = Array.from(this[key].matchAll(reg))
+            if (result) {
+                images.push(...result.map(x => x[1]))
+            }
+        }
+
+        return images;
+    }
 }

@@ -1,6 +1,7 @@
-import Discipline from "../../models/Discipline";
+import {Discipline} from "../../models/discipline.entity";
+import dataSource from "../../typeorm.config";
 
 export default async function disciplineGenerateLabsYaml(event, disciplineId: number) {
-    let discipline = await Discipline.findByPk(disciplineId);
+    let discipline = await dataSource.manager.findOneBy(Discipline, {id: disciplineId});
     return discipline?.generateLabsYaml()
 }

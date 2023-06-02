@@ -1,51 +1,54 @@
-import Lab from "./Lab";
-
-const {DataTypes} = require('sequelize');
-import {db} from '../db';
-import {Model} from "sequelize";
-
-const yaml = require('js-yaml')
-import fs, {existsSync, readFileSync, unlink, unlinkSync} from 'fs'
-import fsExtra from 'fs-extra';
-import path, {resolve, join} from "path";
-import {Table, Column} from "./decorators";
+import {
+    Entity,
+    Column,
+    PrimaryGeneratedColumn, OneToMany, In, UpdateDateColumn, CreateDateColumn,
+} from "typeorm"
+import {Task} from "./task.entity";
+import dataSource from "../typeorm.config";
+import fs, {existsSync, readFileSync, unlinkSync} from "fs";
+import path, {join} from "path";
+import fsExtra from "fs-extra";
 import setDefault, {getFiles} from "../utils";
-import TaskGroup from "./TaskGroup";
-import Student from "./Student";
+import yaml from "js-yaml";
+import {DataTypes} from "sequelize";
+import {Lab} from "./lab.entity";
+import _ from "lodash";
+import TaskGroup from "./task_group.entity";
+import Student from "./student.entity";
 
 
-@Table({
-    sequelize: db,
-    modelName: "Discipline",
-    tableName: "lessons_discipline",
-    createdAt: false,
-    updatedAt: "modified_at"
+@Entity({
+    name: 'lessons_discipline'
 })
-export default class Discipline extends Model {
-    id!: number;
+export class Discipline {
+    @PrimaryGeneratedColumn()
+    id: number;
 
-    @Column(DataTypes.STRING)
-    title!: string;
+    @Column()
+    title: string;
 
-    @Column(DataTypes.DATE)
-    modified_at!: Date;
+    @UpdateDateColumn()
+    @CreateDateColumn()
+    modified_at: Date;
 
-    @Column(DataTypes.STRING)
-    jekyll_folder!: string;
+    @Column()
+    jekyll_folder: string;
 
-    @Column(DataTypes.STRING)
-    deploy_command!: string;
+    @Column()
+    deploy_command: string;
 
-    @Column(DataTypes.STRING)
-    site_url!: string;
+    @Column()
+    site_url: string;
 
-    @Column(DataTypes.BOOLEAN)
-    archive!: boolean;
+    @Column()
+    archive: boolean;
 
-    @Column(DataTypes.JSONB)
-    groups!: Array<number>;
+    @Column({type: "jsonb"})
+    groups: Array<number>;
 
-    getLabs!: { (params?: any): Promise<Array<Lab>> };
+
+    @OneToMany(() => Lab, (lab) => lab.discipline)
+    labs: Lab[]
 
     async generateLabsYaml() {
         if (!fs.existsSync(this.jekyll_folder)) {
@@ -74,7 +77,26 @@ export default class Discipline extends Model {
             fs.mkdirSync(tasksFolder);
         }
         await fsExtra.emptyDir(tasksFolder)
-        let labs = await this.getLabs({order: [["order"], ["title"]]})
+
+        let labs = await dataSource.manager.find(Lab, {
+            where:{
+                discipline_id: this.id
+            },
+            order: {order: 1, title: 1},
+        })
+        let labsTasks = await dataSource.manager.find(Task, {
+            where: {
+                lab_id: In(labs.map(x => x.id))
+            },
+            order: {order: 1, id: 1},
+        })
+        let tasksByLab = _.groupBy(labsTasks, x => x.lab_id)
+        let taskGroups = await dataSource.manager.find(TaskGroup, {
+            where: {
+                id: In(labsTasks.map(x => x.group_id))
+            }
+        })
+        let taskGroupsById = _.keyBy(taskGroups, "id")
 
         for (let lab of labs) {
             let filename = path.join(labsFolder, `${lab.alias}.md`);
@@ -108,7 +130,7 @@ title: ${lab.title}
             lab_item['task_done'] = {}
 
             let task_groups: any = {}
-            let tasks = await lab.getTasks({order: [["order"], ["id"]]})
+            let tasks = tasksByLab[lab.id] || []
             let order = 0;
             for (let t of tasks) {
                 let dir = path.join(this.jekyll_folder, "_tasks")
@@ -125,7 +147,7 @@ title: ${lab.title}
                 if (task_groups[t.group_id]) {
                     task_group = task_groups[t.group_id]
                 } else {
-                    let tg = await t.getTaskGroup();
+                    let tg = taskGroupsById[t.group_id];
                     task_group = setDefault(task_groups, t.group_id || 0, {
                         'id': t.group_id || 0,
                         'title': t.group_id ? tg.title : "default",
@@ -193,7 +215,9 @@ header: <a href="/labs/${lab.alias}.html">${lab.title}</a> / ${task_header}
     }
 
     async getImages() {
-        let labs = await this.getLabs();
+        let labs = await dataSource.manager.find(Lab, {
+            where: {discipline_id: this.id}
+        })
 
         let images: string[] = []
         for (const lab of labs) {
@@ -237,13 +261,17 @@ header: <a href="/labs/${lab.alias}.html">${lab.title}</a> / ${task_header}
     }
 
     async copy() {
-        let newDiscipline = await Discipline.create({
-            ...this.get({plain: true}),
+        let newDiscipline = (await dataSource.manager.insert(Discipline, {
+            ...this,
             title: "[КОПИЯ] " + this.title,
             id: undefined
-        });
+        })).raw;
 
-        let labs = await this.getLabs()
+        let labs = await dataSource.manager.find(Lab, {
+            where: {
+                discipline_id: this.id
+            }
+        })
         for (const l of labs) {
             await l.copy({
                 DisciplineId: newDiscipline.id,
@@ -254,11 +282,3 @@ header: <a href="/labs/${lab.alias}.html">${lab.title}</a> / ${task_header}
         return newDiscipline;
     }
 }
-
-Discipline.hasMany(Lab, {
-    foreignKey: {
-        field: "discipline_id"
-    },
-    onDelete: "cascade",
-})
-Lab.belongsTo(Discipline)

@@ -1,17 +1,14 @@
-import Task from "../../models/Task";
+import dataSource from "../../typeorm.config";
+import {Lab} from "../../models/lab.entity";
+import {Task} from "../../models/task.entity";
 
-export default async function upsertTask(event, taskDTO: any): Promise<Task | null> {
-    if (taskDTO.id) {
-        let task = await Task.findByPk(taskDTO.id)
-        if (task) {
-            task.set(taskDTO)
-            await task.save()
-            return task.toJSON()
-        }
+export default async function upsertTask(event, task: Task): Promise<Task | null> {
+    if (task.id) {
+        await dataSource.manager.update(Task,  task.id, task)
+    } else {
+        task = (await dataSource.manager.insert(Task, task)).raw
     }
-    return await Task.create({
-        ...taskDTO
-    })
+    return task
 }
 
 

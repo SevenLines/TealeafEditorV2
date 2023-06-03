@@ -2,16 +2,16 @@
 
 import BModal from "./BModal.vue";
 import {ref} from "vue";
-import {LabDTO} from "../types";
 import useDisciplineStore from "../store/disciplineStore";
 import {storeToRefs} from "pinia";
 import MarkdownEditor from "../components/MarkdownEditor.vue";
 import BCheckbox from "../components/BCheckbox.vue";
+import {Lab} from "../../main/models/lab.entity";
 
 const disciplineStore = useDisciplineStore();
 
 const modalRef = ref()
-const labToEditForm = ref<LabDTO>({
+const labToEditForm = ref<Partial<Lab>>({
     content: "",
     content_additional: "",
     icon: "",
@@ -25,7 +25,8 @@ const labToEditForm = ref<LabDTO>({
     type: 0,
     id: 0,
     secret: false,
-    modified_at: new Date()
+    modified_at: new Date(),
+    tip: "",
 })
 
 
@@ -34,7 +35,7 @@ const {
 } = storeToRefs(disciplineStore)
 
 defineExpose({
-    show(labToEdit: LabDTO) {
+    show(labToEdit: Lab) {
         labToEditForm.value = {...labToEdit};
         return modalRef.value.show()
     }
@@ -88,6 +89,14 @@ defineExpose({
             <div class="col">
                 <div class="form-group">
                     <markdown-editor v-model="labToEditForm.content_additional"
+                                     min-height="200px"
+                                     max-height="200px"
+                    />
+                </div>
+            </div>
+             <div class="col">
+                <div class="form-group">
+                    <markdown-editor v-model="labToEditForm.tip"
                                      min-height="200px"
                                      max-height="200px"
                     />

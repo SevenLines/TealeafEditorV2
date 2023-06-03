@@ -32,7 +32,7 @@ const textAreaRef = ref();
 watch(() => props.modelValue, () => {
     createMde()
     if (mde.value() !== props.modelValue) {
-        mde.value(props.modelValue);
+        mde.value(props.modelValue || '');
     }
 })
 

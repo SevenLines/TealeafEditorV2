@@ -153,6 +153,7 @@ title: ${lab.title}
             lab_item['remark'] = lab.remark
             lab_item['alias'] = lab.alias
             lab_item['secret'] = lab.secret
+            lab_item['tip'] = lab.tip
             lab_item['task_done'] = {}
 
             let task_groups: any = {}

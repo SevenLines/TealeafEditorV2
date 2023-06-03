@@ -48,6 +48,9 @@ export class Lab {
     content_additional: string;
 
     @Column()
+    tip: string;
+
+    @Column()
     remark: string;
 
     @UpdateDateColumn()

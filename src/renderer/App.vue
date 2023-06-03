@@ -34,9 +34,9 @@ async function onRunProcessClick() {
     <div style="display: grid; height: 100vh; grid-template-rows: auto 1fr">
         <nav class="navbar navbar-expand-sm bg-body-tertiary">
             <div class="container">
-                <a class="navbar-brand" href="/">
+                <router-link to="/" class="navbar-brand">
                     <i class="fad fa-mug-hot"></i> Чаинка Натуральная
-                </a>
+                </router-link>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">

@@ -38,7 +38,7 @@ router.beforeEach(async (to, from) => {
         return {
             name: "DbConnection",
             query: {
-                next: to.path
+                next: "/"
             },
         }
     }

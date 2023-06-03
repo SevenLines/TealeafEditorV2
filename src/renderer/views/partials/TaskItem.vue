@@ -32,6 +32,7 @@ import useDisciplineStore from "../../store/disciplineStore";
 import {storeToRefs} from "pinia";
 import {TaskDTO} from "../../types";
 import BCheckbox from "../../components/BCheckbox.vue";
+import {previewRenderFunc} from "../../utils";
 
 
 const props = defineProps({
@@ -67,7 +68,7 @@ const {
 
 watch(() => props.task, async () => {
     if (activeDiscipline.value) {
-        contentRendered.value = await window.electronAPI.fsPreviewRenderFunc(props.task.content, activeDiscipline.value.jekyll_folder);
+        contentRendered.value = previewRenderFunc(props.task.content);
     }
 }, {
     immediate: true

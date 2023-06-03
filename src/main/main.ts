@@ -5,6 +5,7 @@ import HANDLERS from "./preload";
 import dataSource from "./typeorm.config";
 import settings from 'electron-settings';
 import {PostgresConnectionOptions} from "typeorm/driver/postgres/PostgresConnectionOptions";
+import backupDatabase from "./handlers/fs/backupDatabase";
 
 function createWindow() {
     const mainWindow = new BrowserWindow({
@@ -97,6 +98,10 @@ app.whenReady().then(async () => {
             await saveSettings()
         }
         return dataSource.isInitialized
+    })
+
+    ipcMain.handle("db:backup", (event) => {
+        backupDatabase()
     })
 
     app.on('activate', function () {

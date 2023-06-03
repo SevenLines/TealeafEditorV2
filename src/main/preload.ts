@@ -50,6 +50,7 @@ try {
             status: () => ipcRenderer.invoke("db:status"),
             options: () => ipcRenderer.invoke("db:options"),
             connect: (options) => ipcRenderer.invoke("db:connect", options),
+            backup: (backupDatabase) => ipcRenderer.invoke("db:backup")
         }
     }
 

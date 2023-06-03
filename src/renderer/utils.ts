@@ -46,7 +46,7 @@ export async function uploadFileFunc(file: File, buffer: ArrayBuffer | null) : P
         return await window.electronAPI.fsUploadFileFunc({
             name: file.name,
             path: file.path
-        }, disciplineStore.activeDiscipline.jekyll_folder, buffer)
+        }, disciplineStore.activeDiscipline.jekyll_folder, buffer as any)
     }
     return  null
 }

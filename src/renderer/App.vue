@@ -3,9 +3,11 @@ import useDisciplineStore from "./store/disciplineStore";
 import {storeToRefs} from "pinia";
 import useLabsStore from "./store/labsStore";
 import Console from "./components/Console.vue";
+import {useRoute} from "vue-router";
 
 const disciplineStore = useDisciplineStore();
 const labsStore = useLabsStore();
+const route = useRoute();
 
 const {
     activeDiscipline
@@ -14,6 +16,10 @@ const {
 const {
     activeLab
 } = storeToRefs(labsStore)
+
+async function onCreateBackupClick() {
+    await window.electronAPI.db.backup();
+}
 
 </script>
 
@@ -42,6 +48,7 @@ const {
                             </router-link>
                         </li>
                     </ul>
+                    <button class="btn btn-warning" @click="onCreateBackupClick">Создать бэкап</button>
                 </div>
             </div>
         </nav>

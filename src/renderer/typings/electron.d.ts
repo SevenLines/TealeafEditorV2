@@ -46,7 +46,8 @@ export default interface ElectronApi {
     db: {
         status: () => boolean,
         options: () => any,
-        connect: (connectionOptions: any) => Promise<boolean>
+        connect: (connectionOptions: any) => Promise<boolean>,
+        backup: () => void
     }
 }
 

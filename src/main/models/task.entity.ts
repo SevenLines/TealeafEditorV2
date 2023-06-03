@@ -67,21 +67,5 @@ export class Task {
     @Column()
     show_help_in_modal: boolean;
 
-    getImages(): Array<string> {
-        let images: Array<string> = [];
 
-        let reg = /\!\[.*?\]\((.*?)\)/g;
-        let result = []
-        for(const key of ['content', 'additional_content', "subtasks"]) {
-            if (!this[key])
-                continue
-
-            result = Array.from(this[key].matchAll(reg))
-            if (result) {
-                images.push(...result.map(x => x[1]))
-            }
-        }
-
-        return images;
-    }
 }

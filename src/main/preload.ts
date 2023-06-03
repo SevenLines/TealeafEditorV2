@@ -1,30 +1,7 @@
 import {contextBridge, ipcRenderer} from 'electron';
 
 const HANDLERS = [
-    "db:fetchDisciplines",
-    "db:fetchLabs",
-    "db:fetchTaskGroups",
-    "db:fetchTasks",
-    "db:fetchDiscipline",
-    "db:fetchLab",
-    "db:fetchTask",
-
-    "db:upsertDiscipline",
-    "db:upsertLab",
-    "db:upsertTask",
-    "db:updateLabsOrder",
-    "db:updateTasksOrder",
-    "db:disciplineCopy",
-
-    "db:deleteDiscipline",
-    "db:deleteLab",
-    "db:deleteTask",
-
-    "db:disciplineGenerateLabsYaml",
-    "db:disciplineGetImages",
-    "db:disciplineRemoveUnusedImages",
     "db:labCopyTasksToLab",
-
 
     "fs:previewRenderFunc",
     "fs:uploadFileFunc",
@@ -35,6 +12,10 @@ const HANDLERS = [
     "deploy:stopJekyllProcess",
 ]
 
+
+async function repositoryFunc(repoName, method, data) {
+    return ipcRenderer.invoke("repository:exec", repoName, method, data)
+}
 
 try {
     const api = {
@@ -51,7 +32,34 @@ try {
             options: () => ipcRenderer.invoke("db:options"),
             connect: (options) => ipcRenderer.invoke("db:connect", options),
             backup: (backupDatabase) => ipcRenderer.invoke("db:backup")
-        }
+        },
+        disciplineRepository: {
+            remove: (data) => repositoryFunc("DisciplineRepository", "remove", data),
+            get: (data) => repositoryFunc("DisciplineRepository", "get", data),
+            list: (data) => repositoryFunc("DisciplineRepository", "list", data),
+            upsert: (data) => repositoryFunc("DisciplineRepository", "upsert", data),
+            getLabs: (data) => repositoryFunc("DisciplineRepository", "getLabs", data),
+            disciplineCopy: (data) => repositoryFunc("DisciplineRepository", "disciplineCopy", data),
+            disciplineGenerateLabsYaml: (data) => repositoryFunc("DisciplineRepository", "disciplineGenerateLabsYaml", data),
+            disciplineGetImages: (data) => repositoryFunc("DisciplineRepository", "disciplineGetImages", data),
+            disciplineRemoveUnusedImages: (data) => repositoryFunc("DisciplineRepository", "disciplineRemoveUnusedImages", data),
+        },
+        labsRepository: {
+            remove: (data) => repositoryFunc("LabRepository", "remove", data),
+            get: (data) => repositoryFunc("LabRepository", "get", data),
+            list: (data) => repositoryFunc("LabRepository", "list", data),
+            updateLabsOrder: (data) => repositoryFunc("LabRepository", "updateLabsOrder", data),
+            upsert: (data) => repositoryFunc("LabRepository", "upsert", data),
+            getTasks: (data) => repositoryFunc("LabRepository", "getTasks", data),
+        },
+        taskRepository: {
+            remove: (data) => repositoryFunc("TaskRepository", "remove", data),
+            get: (data) => repositoryFunc("TaskRepository", "get", data),
+            list: (data) => repositoryFunc("TaskRepository", "list", data),
+            fetchTaskGroups: (data) => repositoryFunc("TaskRepository", "fetchTaskGroups", data),
+            updateTasksOrder: (data) => repositoryFunc("TaskRepository", "updateTasksOrder", data),
+            upsert: (data) => repositoryFunc("TaskRepository", "upsert", data),
+        },
     }
 
     for (let h of HANDLERS) {

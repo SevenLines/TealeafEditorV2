@@ -5,7 +5,6 @@ import useDisciplineStore from "../store/disciplineStore";
 import useLabsStore from "../store/labsStore";
 import {storeToRefs} from "pinia";
 import useTasksStore from "../store/tasksStore";
-import {TaskDTO} from "../types";
 import * as electron from "electron";
 import TaskItem from "./partials/TaskItem.vue";
 import {Sortable} from "sortablejs-vue3";
@@ -17,6 +16,7 @@ import {ComplexityTypes} from "../consts";
 import _ from "lodash";
 import CopyTasksModal from "../modals/CopyTasksModal.vue";
 import useToastsStore from "../store/toastsStore";
+import {Task} from "../../main/models/task.entity";
 
 const props = defineProps({
     id: {
@@ -38,13 +38,13 @@ const {
     activeDiscipline
 } = storeToRefs(disciplineStore)
 
-const activeTask = ref<TaskDTO | null>(null);
+const activeTask = ref<Task | null>(null);
 const confirmModalRef = ref()
 const copyTasksModalRef = ref()
 
 const activeTaskGroup = ref(-1);
 const taskGroups = ref([])
-const tasks = ref<TaskDTO[]>([]);
+const tasks = ref<Task[]>([]);
 
 const taskGroupsOptions = computed(() => {
     return [{value: -1, text: "без группы"}, ...taskGroups.value.map(x => {
@@ -74,7 +74,7 @@ async function fetchTasks() {
     }
 }
 
-function onEdit(task: TaskDTO) {
+function onEdit(task: Task) {
     if (activeTask.value == task) {
         activeTask.value = null
     } else {
@@ -82,7 +82,7 @@ function onEdit(task: TaskDTO) {
     }
 }
 
-async function onEyeClick(task: TaskDTO) {
+async function onEyeClick(task: Task) {
     await tasksStore.upsertTask({
         ...task,
         visible: !task.visible
@@ -90,7 +90,7 @@ async function onEyeClick(task: TaskDTO) {
     await fetchTasks()
 }
 
-async function onRemove(task: TaskDTO) {
+async function onRemove(task: Task) {
     let r = await confirmModalRef.value.show("Точно удалить задачу?")
     if (r) {
         await tasksStore.deleteTask(task.id)
@@ -99,7 +99,7 @@ async function onRemove(task: TaskDTO) {
 }
 
 
-async function onTipClick(task: TaskDTO) {
+async function onTipClick(task: Task) {
     let href = `http://localhost:4000/tasks/${task.id}`
     // await electron.openExternal(href);
 }

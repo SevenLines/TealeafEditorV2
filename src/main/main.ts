@@ -104,6 +104,11 @@ app.whenReady().then(async () => {
         backupDatabase()
     })
 
+    ipcMain.handle("repository:exec", (event, repositoryName, method, data) => {
+        const repository = require(`./repositories/${repositoryName}`)
+        return (repository.default)[method](data)
+    })
+
     app.on('activate', function () {
         // On macOS it's common to re-create a window in the app when the
         // dock icon is clicked and there are no other windows open.

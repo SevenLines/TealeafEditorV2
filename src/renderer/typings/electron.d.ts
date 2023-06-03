@@ -1,4 +1,9 @@
 import {DisciplineDTO, LabDTO, TaskDTO, TaskGroupDTO} from "../types";
+import DisciplineRepository from "../../main/repositories/DisciplineRepository";
+import {Discipline} from "../../main/models/discipline.entity";
+import LabRepository from "../../main/repositories/LabRepository";
+import {Lab} from "../../main/models/lab.entity";
+import TaskRepository from "../../main/repositories/TaskRepository";
 
 /**
  * Should match main/preload.ts for typescript support in renderer
@@ -10,29 +15,6 @@ export default interface ElectronApi {
     deployRunJekyllProcess: (disciplineId: number) => void;
     deployStopJekyllProcess: (disciplineId: number) => void;
 
-    dbFetchDisciplines: () => Promise<DisciplineDTO[]>
-    dbFetchLabs: (disciplineId: number) => Promise<LabDTO[]>;
-    dbFetchTaskGroups: (labId: number) => Promise<TaskGroupDTO[]>;
-    dbFetchTasks: (labId: number) => Promise<TaskDTO[]>;
-    dbDisciplineCopy: (disciplineId: number) => Promise<DisciplineDTO>;
-
-    dbDeleteDiscipline: (disciplineId: number) => void;
-    dbDeleteLab: (labId: number) => void;
-    dbDeleteTask: (taskId: number) => void;
-
-    dbFetchDiscipline: (disciplineId: number) => Promise<DisciplineDTO>;
-    dbFetchLab: (labId: number) => Promise<LabDTO>;
-    dbFetchTask: (taskId: number) => Promise<TaskDTO>;
-
-    dbUpsertDiscipline: (data: DisciplineDTO) => Promise<DisciplineDTO>;
-    dbUpsertLab: (data: LabDTO) => Promise<LabDTO>;
-    dbUpsertTask: (data: TaskDTO) => Promise<TaskDTO>;
-    dbUpdateLabsOrder: (labs: LabDTO[]) => void;
-    dbUpdateTasksOrder: (labs: TaskDTO[]) => void;
-
-    dbDisciplineGenerateLabsYaml: (disciplineId: number) => void;
-    dbDisciplineGetImages: (disciplineId: number) => string[];
-    dbDisciplineRemoveUnusedImages: (disciplineId: number) => void;
     dbLabCopyTasksToLab: (labId: number, jekyllFolder: string, tasks: TaskDTO[], activeGroupId: number | null) => void
 
     fsPreviewRenderFunc: (text: string, jekyll_folder: string) => Promise<string>;
@@ -42,13 +24,15 @@ export default interface ElectronApi {
         path: string
     }, jekyll_folder: string, fileObject: File) => Promise<{ link: string }>;
 
-    globalShared: () => any
     db: {
         status: () => boolean,
         options: () => any,
         connect: (connectionOptions: any) => Promise<boolean>,
         backup: () => void
-    }
+    },
+    disciplineRepository: typeof DisciplineRepository,
+    labsRepository: typeof LabRepository,
+    taskRepository: typeof TaskRepository,
 }
 
 declare global {

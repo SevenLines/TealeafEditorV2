@@ -82,12 +82,9 @@ async function connect() {
                 </b-form-floating>
             </div>
             <div class="col-12 text-end">
-                <button class="btn btn-info" v-if="connecting">
-                    <div class="spinner-border" role="status">
-                      <span class="visually-hidden">Loading...</span>
-                    </div>
+                <button class="btn btn-info" @click="connect">
+                    Подключится <i class="fa-solid fa-spinner fa-spin-pulse" v-if="connecting"></i>
                 </button>
-                <button v-else class="btn btn-info" @click="connect">Подключится</button>
             </div>
         </div>
 

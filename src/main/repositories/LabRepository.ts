@@ -45,11 +45,12 @@ export default class LabRepository {
     }
 
     static async copy(lab: Lab, labParams?: any) {
-        let newLab = (await dataSource.manager.insert(Lab, {
+        let newLab = dataSource.manager.create(Lab, {
             ...lab,
             ...labParams,
             id: undefined
-        })).raw;
+        });
+        await dataSource.manager.save(newLab)
 
         let tasks = await dataSource.manager.find(Task, {
             where: {
@@ -60,7 +61,6 @@ export default class LabRepository {
             return {
                 ...t,
                 lab_id: newLab.id,
-                LabId: newLab.id,
                 id: undefined,
             }
         })

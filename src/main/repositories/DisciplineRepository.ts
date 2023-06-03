@@ -287,11 +287,15 @@ header: <a href="/labs/${lab.alias}.html">${lab.title}</a> / ${task_header}
     }
 
     private static async copy(discipline: Discipline) {
-        let newDiscipline = (await dataSource.manager.insert(Discipline, {
+        let newDiscipline = dataSource.manager.create(Discipline, {
             ...discipline,
             title: "[КОПИЯ] " + discipline.title,
             id: undefined
-        })).raw;
+        })
+        await dataSource.manager.save(newDiscipline)
+
+        // let newDiscipline = (await dataSource.manager.insert(Discipline, {
+        //     )).raw;
 
         let labs = await dataSource.manager.find(Lab, {
             where: {
@@ -300,7 +304,6 @@ header: <a href="/labs/${lab.alias}.html">${lab.title}</a> / ${task_header}
         })
         for (const l of labs) {
             await LabRepository.copy(l, {
-                DisciplineId: newDiscipline.id,
                 discipline_id: newDiscipline.id,
             })
         }

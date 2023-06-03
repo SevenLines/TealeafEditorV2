@@ -4,6 +4,7 @@ import useDisciplineStore from "./disciplineStore";
 import useLabsStore from "./labsStore";
 import useToastsStore from "./toastsStore";
 import {Task} from "../../main/models/task.entity";
+import {deepToRaw} from "../utils";
 
 const useTasksStore = defineStore("tasksStore", () => {
     const labsStore = useLabsStore();
@@ -34,7 +35,7 @@ const useTasksStore = defineStore("tasksStore", () => {
 
     async function upsertTask(task: Task) {
         toastsStore.showInfo("Начал обновлять задачу")
-        await window.electronAPI.taskRepository.upsert(toRaw(task));
+        await window.electronAPI.taskRepository.upsert(deepToRaw(task));
         if (activeDiscipline.value) {
             await window.electronAPI.disciplineRepository.disciplineGenerateLabsYaml(activeDiscipline.value.id)
         }

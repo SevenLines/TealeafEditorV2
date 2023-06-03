@@ -5,6 +5,7 @@ import {createPinia} from "pinia";
 import "bootstrap/dist/css/bootstrap.css"
 import "./assets/fontawesome/css/all.min.css";
 import "./assets/base.scss"
+// import "./assets/bootstrap.lumen.min.css"
 
 
 const app = createApp(App);

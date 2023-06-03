@@ -17,6 +17,8 @@ import _ from "lodash";
 import CopyTasksModal from "../modals/CopyTasksModal.vue";
 import useToastsStore from "../store/toastsStore";
 import {Task} from "../../main/models/task.entity";
+import SubtaskModal from "../modals/SubtaskModal.vue";
+import {Subtask} from "../types";
 
 const props = defineProps({
     id: {
@@ -41,6 +43,7 @@ const {
 const activeTask = ref<Task | null>(null);
 const confirmModalRef = ref()
 const copyTasksModalRef = ref()
+const editSubTasksModalRef = ref()
 
 const activeTaskGroup = ref(-1);
 const taskGroups = ref([])
@@ -132,14 +135,6 @@ async function onSaveTaskClick(task_form: any, buttonClicked: any) {
 async function saveActiveTask(buttonClicked = false) {
     if (activeTask.value) {
         await tasksStore.upsertTask(activeTask.value)
-        // this.$notify({
-        //     group: 'messages',
-        //     title: 'Database',
-        //     type: 'success',
-        //     duration: 500,
-        //     text: 'Successfully task saved!'
-        // });
-
         let isNew = !activeTask.value.id;
 
         await fetchTasks()
@@ -152,7 +147,13 @@ async function saveActiveTask(buttonClicked = false) {
 
 
 async function onAddSubtaskClicked() {
-    // (this.$refs.editSubTasksModal as any).show()
+    let r = await editSubTasksModalRef.value.show(activeTask.value)
+    if (r) {
+        if (activeTask.value) {
+            activeTask.value.subtasks = r;
+            await tasksStore.upsertTask(activeTask.value)
+        }
+    }
 }
 
 async function onCopyTasksClick() {
@@ -227,11 +228,12 @@ async function onAddTaskClick() {
 
 //
 
-// async onSubtasksModalOkClicked(subtasks: Array<Subtask>) {
-//     this.activeTask.subtasks = subtasks;
-//     await this.SaveActiveTasks();
-// }
-//
+async function onSubtasksModalOkClicked(subtasks: Array<Subtask>) {
+    console.log(subtasks)
+    // this.activeTask.subtasks = subtasks;
+    // await this.SaveActiveTasks();
+}
+
 
 
 //
@@ -345,6 +347,7 @@ async function onAddTaskClick() {
         </div>
 
         <copy-tasks-modal ref="copyTasksModalRef"/>
+        <subtask-modal ref="editSubTasksModalRef" active-task="activeTask" @ok-clicked="onSubtasksModalOkClicked" />
         <!--        <b-modal id="newTaskGroupModal" title="Создать новую группу" @ok="onCreateTaskGroupOkClicked">-->
         <!--            <b-form-group>-->
         <!--                <b-input v-model="newTaskGroupTitle"></b-input>-->

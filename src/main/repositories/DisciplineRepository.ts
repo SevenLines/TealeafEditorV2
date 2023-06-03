@@ -37,7 +37,7 @@ export default class DisciplineRepository {
         })
     }
 
-    static async upsert(discipline: Discipline): Promise<Discipline | null> {
+    static async upsert(discipline: Partial<Discipline>): Promise<Discipline | null> {
         if (discipline.id) {
             discipline.modified_at = new Date()
             await dataSource.manager.update(Discipline, discipline.id, discipline)
@@ -45,7 +45,7 @@ export default class DisciplineRepository {
             discipline.modified_at = new Date()
             discipline = (await dataSource.manager.insert(Discipline, discipline)).raw
         }
-        return discipline;
+        return discipline as Discipline;
     }
 
     static async disciplineCopy(disciplineId: number): Promise<Discipline | null> {

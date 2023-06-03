@@ -1,8 +1,8 @@
 import {defineStore, storeToRefs} from "pinia";
 import {ref, toRaw, watch} from "vue";
-import {TaskDTO} from "../types";
 import useDisciplineStore from "./disciplineStore";
 import {Lab} from "../../main/models/lab.entity";
+import {Task} from "../../main/models/task.entity";
 
 const useLabsStore = defineStore("labsStore", () => {
     const disciplineStore = useDisciplineStore();
@@ -55,7 +55,7 @@ const useLabsStore = defineStore("labsStore", () => {
         }
     }
 
-    async function labCopyTasksToLab(labId: number, jekyllFolder:string, tasksToCopy: TaskDTO[], activeTaskGroupId: number | null) {
+    async function labCopyTasksToLab(labId: number, jekyllFolder:string, tasksToCopy: Task[], activeTaskGroupId: number | null) {
         await window.electronAPI.dbLabCopyTasksToLab(
             labId,
             jekyllFolder,

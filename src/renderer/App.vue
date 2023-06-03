@@ -21,6 +21,12 @@ async function onCreateBackupClick() {
     await window.electronAPI.db.backup();
 }
 
+async function onRunProcessClick() {
+    if (activeDiscipline.value) {
+        window.electronAPI.deployRunJekyllProcess(activeDiscipline.value.id)
+    }
+}
+
 </script>
 
 <template>
@@ -48,7 +54,10 @@ async function onCreateBackupClick() {
                             </router-link>
                         </li>
                     </ul>
-                    <button class="btn btn-warning" @click="onCreateBackupClick">Создать бэкап</button>
+                    <button class="ms-2 btn btn-warning" @click="onRunProcessClick" v-if="activeDiscipline">
+                        <span >Запустить</span>
+                    </button>
+                    <button class="ms-2 btn btn-warning" @click="onCreateBackupClick">Создать бэкап</button>
                 </div>
             </div>
         </nav>

@@ -139,10 +139,6 @@ async function onLabSortEnd(event: any) {
     }
 }
 
-async function onGenerateClick() {
-
-}
-
 async function onRunProcessClick() {
     if (activeDiscipline.value) {
         window.electronAPI.deployRunJekyllProcess(activeDiscipline.value.id)
@@ -267,14 +263,6 @@ async function onDeployClick() {
                 <!--                <button class="ms-2 btn btn-warning" @click="onLabTaskSortClick">-->
                 <!--                    Раскидать задачи-->
                 <!--                </button>-->
-                <div class="btn-group">
-                    <button class="ms-2 btn btn-warning" @click="onGenerateClick">
-                        Сгенерировать
-                    </button>
-                    <button class="ml-2 btn btn-warning" @click="onRunProcessClick">
-                        <span >Запустить</span>
-                    </button>
-                </div>
                 <button class="ms-2 btn btn-danger" @click="onDeployClick">
                     Задеплоить
                 </button>

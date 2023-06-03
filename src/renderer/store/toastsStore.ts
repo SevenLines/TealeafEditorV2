@@ -35,9 +35,26 @@ const useToastsStore = defineStore("toastsStore", () => {
         }).showToast();
     }
 
+    function showDanger(message: string) {
+        Toastify({
+          text: message,
+          duration: -1,
+          newWindow: true,
+          close: true,
+          gravity: "top", // `top` or `bottom`
+          position: "right", // `left`, `center` or `right`
+          stopOnFocus: true, // Prevents dismissing of toast on hover
+          style: {
+            background: "linear-gradient(90deg, #ff478e 0%, #ffaf47 100%);",
+          },
+          onClick: function(){} // Callback after click
+        }).showToast();
+    }
+
     return {
         showInfo,
-        showSuccess
+        showSuccess,
+        showDanger
     }
 })
 

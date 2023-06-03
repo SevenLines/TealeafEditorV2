@@ -1,74 +1,130 @@
 import {app, BrowserWindow, contextBridge, ipcMain, ipcRenderer, session} from 'electron';
-import {join} from 'path';
+import path, {join} from 'path';
 import global from "./global";
 import HANDLERS from "./preload";
 import dataSource from "./typeorm.config";
+import settings from 'electron-settings';
+import {PostgresConnectionOptions} from "typeorm/driver/postgres/PostgresConnectionOptions";
 
+function createWindow() {
+    const mainWindow = new BrowserWindow({
+        width: 1540,
+        height: 920,
+        title: "Чаинка",
+        webPreferences: {
+            preload: join(__dirname, 'preload.js'),
+            nodeIntegration: false,
+            contextIsolation: true,
+            webSecurity: false,
+            // webviewTag: true,
+        },
+        autoHideMenuBar: true,
+    });
+    // mainWindow.removeMenu()
 
-function createWindow () {
-  const mainWindow = new BrowserWindow({
-    width: 1540,
-    height: 920,
-    webPreferences: {
-      preload: join(__dirname, 'preload.js'),
-      nodeIntegration: false,
-      contextIsolation: true,
-      webSecurity: false,
-      // webviewTag: true,
-    },
-    autoHideMenuBar: true,
-  });
-  // mainWindow.removeMenu()
+    if (process.env.NODE_ENV === 'development') {
+        const appData = app.getPath('appData')
+        app.setPath('userData', path.join(appData, '4ainka'))
+        console.log(app.getPath('userData'))
+        const rendererPort = process.argv[2];
+        mainWindow.loadURL(`http://localhost:${rendererPort}`);
+    } else {
+        mainWindow.loadFile(join(app.getAppPath(), 'renderer', 'index.html'));
+    }
+}
 
-  if (process.env.NODE_ENV === 'development') {
-    const rendererPort = process.argv[2];
-    mainWindow.loadURL(`http://localhost:${rendererPort}`);
-  }
-  else {
-    mainWindow.loadFile(join(app.getAppPath(), 'renderer', 'index.html'));
-  }
+async function saveSettings() {
+    const {
+        host,
+        port,
+        username,
+        database,
+        password,
+    } = dataSource.options as PostgresConnectionOptions
+    await settings.set('db', {
+        host: host ?? "",
+        port: (port ?? 5432).toString(),
+        username: username ?? "",
+        database: database ?? "",
+        password: (password as string) ?? "",
+    })
+}
+
+async function loadSettings() {
+    return await settings.get('db')
 }
 
 app.whenReady().then(async () => {
-  await dataSource.initialize()
+    // await dataSource.initialize()
 
-  createWindow();
+    createWindow();
 
-  session.defaultSession.webRequest.onHeadersReceived((details, callback) => {
-    callback({
-      responseHeaders: {
-        ...details.responseHeaders,
-        'Content-Security-Policy': ['script-src \'self\'']
-      }
+    session.defaultSession.webRequest.onHeadersReceived((details, callback) => {
+        callback({
+            responseHeaders: {
+                ...details.responseHeaders,
+                'Content-Security-Policy': ['script-src \'self\'']
+            }
+        })
     })
-  })
 
-  app.on('activate', function () {
-    // On macOS it's common to re-create a window in the app when the
-    // dock icon is clicked and there are no other windows open.
-    if (BrowserWindow.getAllWindows().length === 0) {
-      createWindow();
-    }
-  });
+    ipcMain.handle("db:status", () => {
+        return dataSource.isInitialized
+    })
 
-  await prepareHandlers()
+    ipcMain.handle("db:options", async () => {
+        const {
+            host,
+            port,
+            username,
+            database,
+            password,
+        } = ((await settings.get('db')) || dataSource.options) as any
+        return {
+            host,
+            port,
+            username,
+            database,
+            password,
+        }
+    })
+
+    ipcMain.handle("db:connect", async (event, options: Partial<PostgresConnectionOptions>) => {
+        dataSource.setOptions(options)
+        await dataSource.initialize()
+        let status = dataSource.isInitialized
+        if (status) {
+            await saveSettings()
+        }
+        return dataSource.isInitialized
+    })
+
+    app.on('activate', function () {
+        // On macOS it's common to re-create a window in the app when the
+        // dock icon is clicked and there are no other windows open.
+        if (BrowserWindow.getAllWindows().length === 0) {
+            createWindow();
+        }
+    });
+
+    await prepareHandlers()
 });
 
 app.on('window-all-closed', function () {
-  if (process.platform !== 'darwin') app.quit()
+    if (process.platform !== 'darwin') app.quit()
 });
 
 ipcMain.on('message', (event, message) => {
-  console.log(message);
+    console.log(message);
 })
 
 async function prepareHandlers() {
-  for (let functionName of HANDLERS) {
-    let funcInfo = functionName.match(/(\w+):(\w+)/);
-    if (funcInfo) {
-      let func = await import(`./handlers/${funcInfo[1]}/${funcInfo[2]}`);
-      ipcMain.handle(functionName, func.default)
-    }
+    for (let functionName of HANDLERS) {
+        let funcInfo = functionName.match(/(\w+):(\w+)/);
+        if (funcInfo) {
+            let func = await import(`./handlers/${funcInfo[1]}/${funcInfo[2]}`);
+            ipcMain.handle(functionName, func.default)
+        }
 
-  }
+    }
 }

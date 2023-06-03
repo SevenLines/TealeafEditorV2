@@ -40,9 +40,14 @@ export default interface ElectronApi {
     fsUploadFileFunc: (file: {
         name: string,
         path: string
-    }, jekyll_folder: string, fileObject: File) => Promise<{link: string}>;
+    }, jekyll_folder: string, fileObject: File) => Promise<{ link: string }>;
 
     globalShared: () => any
+    db: {
+        status: () => boolean,
+        options: () => any,
+        connect: (connectionOptions: any) => Promise<boolean>
+    }
 }
 
 declare global {

@@ -23,38 +23,38 @@ export class Lab {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
+    @Column({type: "text"})
     alias: string;
 
-    @Column()
+    @Column({type: "text"})
     title: string;
 
     @Column()
     order: number;
 
-    @Column()
+    @Column({type: "text"})
     icon: string;
 
-    @Column()
+    @Column({nullable: true})
     group_id: number;
 
     @Column()
     type: number;
 
-    @Column()
+    @Column({type: "text"})
     content: string;
 
-    @Column()
+    @Column({type: "text"})
     content_additional: string;
 
-    @Column()
+    @Column({nullable: true})
     tip: string;
 
-    @Column()
+    @Column({type: "text"})
     remark: string;
 
-    @UpdateDateColumn()
-    @CreateDateColumn()
+    @UpdateDateColumn({type: "timestamp with time zone"})
+    @CreateDateColumn({type: "timestamp with time zone"})
     modified_at: Date;
 
     @ManyToOne(() => Discipline, (discipline) => discipline.labs)
@@ -64,10 +64,10 @@ export class Lab {
     @Column()
     discipline_id: number;
 
-    @Column()
+    @Column({nullable: true})
     visible: boolean;
 
-    @Column()
+    @Column({nullable: true, default: false})
     secret: boolean;
 
     @OneToMany(() => Task, (task) => task.lab)

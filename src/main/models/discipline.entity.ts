@@ -1,7 +1,7 @@
 import {
     Entity,
     Column,
-    PrimaryGeneratedColumn, OneToMany, In, UpdateDateColumn, CreateDateColumn,
+    PrimaryGeneratedColumn, OneToMany, In, UpdateDateColumn, CreateDateColumn, ManyToMany,
 } from "typeorm"
 import {Task} from "./task.entity";
 import dataSource from "../typeorm.config";
@@ -23,29 +23,31 @@ export class Discipline {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
+    @Column("text")
     title: string;
 
-    @UpdateDateColumn()
-    @CreateDateColumn()
+    @UpdateDateColumn({type: "timestamp with time zone"})
+    @CreateDateColumn({type: "timestamp with time zone"})
     modified_at: Date;
 
-    @Column()
+    @Column({type: "text"})
     jekyll_folder: string;
 
-    @Column()
+    @Column({type: "text", nullable: true})
     deploy_command: string;
 
-    @Column()
+    @Column({type: "varchar", length: 255, nullable: true})
     site_url: string;
 
-    @Column()
+    @Column({default: false, nullable: true})
     archive: boolean;
 
-    @Column({type: "jsonb"})
+    @Column({type: "jsonb", nullable: true})
     groups: Array<number>;
-
 
     @OneToMany(() => Lab, (lab) => lab.discipline)
     labs: Lab[]
+
+    @ManyToMany(() => Student)
+    students: Student[]
 }

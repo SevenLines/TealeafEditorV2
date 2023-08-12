@@ -1,7 +1,8 @@
-import {Column, Entity, PrimaryGeneratedColumn} from "typeorm";
+import {Column, Entity, ManyToMany, PrimaryGeneratedColumn} from "typeorm";
+import {Discipline} from "./discipline.entity";
 
 @Entity({
-    name: "lessons_student",
+    name: "students",
 })
 export default class Student {
     @PrimaryGeneratedColumn()
@@ -20,8 +21,11 @@ export default class Student {
     sex: number
 
     @Column()
-    group_id: number;
+    group_title: number;
 
     @Column()
     visible: boolean;
+
+    @ManyToMany(() => Discipline, (discipline) => discipline.students)
+    questions: Discipline[]
 }

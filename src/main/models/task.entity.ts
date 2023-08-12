@@ -21,28 +21,28 @@ export class Task {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
+    @Column("text", {nullable: true})
     title: string;
 
     @Column()
     complexity: number;
 
-    @Column()
+    @Column("text")
     content: string;
 
-    @Column()
+    @Column("text")
     additional_content: string;
 
     @Column()
     order: number;
 
-    @Column("text", {array: true})
+    @Column("text", {array: true, nullable: true})
     tags: string[];
 
     @Column()
     visible: boolean;
 
-    @Column()
+    @Column({nullable: true})
     group_id: number;
 
     @Column()
@@ -52,20 +52,21 @@ export class Task {
     @JoinColumn({ name: "lab_id" })
     lab: Lab;
 
-    @Column()
+    @Column("text", {nullable: true})
     custom_class: string;
 
-    @Column()
+    @Column("varchar", {length: 255, nullable: true})
     youtube_link: string;
 
-    @Column({type: "jsonb"})
+    @Column({type: "jsonb", nullable: true})
     subtasks: Subtask[]
 
-    @Column({type: "jsonb"})
+    @Column({type: "jsonb", nullable: true})
     students_info: StudentInfo[]
 
-    @Column()
+    @Column({nullable: true, default: false})
     show_help_in_modal: boolean;
 
-
+    @Column({nullable: true})
+    tip: string;
 }

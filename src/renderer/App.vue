@@ -4,6 +4,7 @@ import {storeToRefs} from "pinia";
 import useLabsStore from "./store/labsStore";
 import Console from "./components/Console.vue";
 import {useRoute} from "vue-router";
+import {onMounted} from "vue";
 
 const disciplineStore = useDisciplineStore();
 const labsStore = useLabsStore();
@@ -30,7 +31,7 @@ async function onRunProcessClick() {
 </script>
 
 <template>
-    <console />
+    <console/>
     <div style="display: grid; height: 100vh; grid-template-rows: auto 1fr">
         <nav class="navbar navbar-expand-sm bg-body-tertiary">
             <div class="container">
@@ -46,16 +47,17 @@ async function onRunProcessClick() {
                     <div class="flex-grow-1"></div>
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0" v-if="activeDiscipline">
                         <li>
-                            <router-link  class="me-2" v-if="activeDiscipline" :to="`/discipline/${activeDiscipline.id}`">
+                            <router-link class="me-2" v-if="activeDiscipline"
+                                         :to="`/discipline/${activeDiscipline.id}`">
                                 {{ activeDiscipline.title }}
                             </router-link>
-                             <router-link class="me-2" v-if="activeLab" :to="`/lab/${activeLab.id}`">
+                            <router-link class="me-2" v-if="activeLab" :to="`/lab/${activeLab.id}`">
                                 {{ activeLab.title }}
                             </router-link>
                         </li>
                     </ul>
                     <button class="ms-2 btn btn-warning" @click="onRunProcessClick" v-if="activeDiscipline">
-                        <span >Запустить</span>
+                        <span>Запустить</span>
                     </button>
                     <button class="ms-2 btn btn-warning" @click="onCreateBackupClick">Создать бэкап</button>
                 </div>
@@ -63,11 +65,11 @@ async function onRunProcessClick() {
         </nav>
         <div class="container-fluid" style="overflow-y: auto">
             <router-view/>
-<!--            <router-view v-slot="{ Component }">-->
-<!--              <transition name="fade" mode="out-in">-->
-<!--                <component :is="Component" />-->
-<!--              </transition>-->
-<!--            </router-view>-->
+            <!--            <router-view v-slot="{ Component }">-->
+            <!--              <transition name="fade" mode="out-in">-->
+            <!--                <component :is="Component" />-->
+            <!--              </transition>-->
+            <!--            </router-view>-->
         </div>
     </div>
 </template>
@@ -79,49 +81,49 @@ async function onRunProcessClick() {
 
 .fade-enter-active,
 .fade-leave-active {
-  transition: all 0.5s ease;
+    transition: all 0.5s ease;
 }
 
 .fade-enter-from,
 .fade-leave-to {
-  transform: translateX(-100px);
-  opacity: 0;
+    transform: translateX(-100px);
+    opacity: 0;
 }
 
 #app {
-  .breadcrumb {
-    margin-bottom: 0;
-  }
+    .breadcrumb {
+        margin-bottom: 0;
+    }
 }
 
 .dark {
-  font-size: 1rem;
-  font-weight: 400;
-  line-height: 1.5;
-  color: #839496;
-  text-align: left;
-  background-color: #002b36;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #839496;
+    text-align: left;
+    background-color: #002b36;
 }
 
 .console {
-  font-family: Courier, "Courier New", monospace;
-  font-size: 14px;
-  position: absolute;
-  top: -100vh;
-  left: 0;
-  right: 0;
-  height: 100vh;
-  background-color: black;
-  color: white;
-  z-index: 1000;
-  box-sizing: border-box;
-  opacity: 0;
+    font-family: Courier, "Courier New", monospace;
+    font-size: 14px;
+    position: absolute;
+    top: -100vh;
+    left: 0;
+    right: 0;
+    height: 100vh;
+    background-color: black;
+    color: white;
+    z-index: 1000;
+    box-sizing: border-box;
+    opacity: 0;
 
-  transition: all 0.3s;
+    transition: all 0.3s;
 
-  &.active {
-    top: 0;
-    opacity: 0.95;
-  }
+    &.active {
+        top: 0;
+        opacity: 0.95;
+    }
 }
 </style>

@@ -9,10 +9,10 @@ export default class TaskGroup {
     @PrimaryGeneratedColumn()
     id;
 
-    @Column()
-    title: number;
+    @Column("text")
+    title: string;
 
-    @Column()
+    @Column({nullable: true})
     lab_id: number;
 
     @ManyToOne(() => Lab, (lab) => lab.groups)

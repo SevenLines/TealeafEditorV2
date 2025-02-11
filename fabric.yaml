@@ -4,7 +4,7 @@ it2020:
     host: "tealeaf.su"
     port: 22
     connect_kwargs:
-      key_filename: C:\Users\m\.ssh\firstvds_kvm
+      key_filename: c:\Users\mmail\.ssh\firstvds_kvm
   folder: "~/projects/Lessons/2020/it2020"
 it2020_python:
   connection:
@@ -12,7 +12,7 @@ it2020_python:
     host: "tealeaf.su"
     port: 22
     connect_kwargs:
-      key_filename: C:\Users\m\.ssh\firstvds_kvm
+      key_filename: c:\Users\mmail\.ssh\firstvds_kvm
   folder: "~/projects/Lessons/2020/it2020_python"
 istbp18:
   connection:
@@ -20,7 +20,7 @@ istbp18:
     host: "tealeaf.su"
     port: 22
     connect_kwargs:
-      key_filename: C:\Users\m\.ssh\firstvds_kvm
+      key_filename: c:\Users\mmail\.ssh\firstvds_kvm
   folder: "~/projects/Lessons/2020/istbp18"
 ismb19:
   connection:
@@ -28,7 +28,7 @@ ismb19:
     host: "tealeaf.su"
     port: 22
     connect_kwargs:
-      key_filename: C:\Users\m\.ssh\firstvds_kvm
+      key_filename: c:\Users\mmail\.ssh\firstvds_kvm
   folder: "~/projects/Lessons/2020/ismb19"
 it2020_2sem:
   connection:
@@ -36,7 +36,7 @@ it2020_2sem:
     host: "tealeaf.su"
     port: 22
     connect_kwargs:
-      key_filename: C:\Users\m\.ssh\firstvds_kvm
+      key_filename: c:\Users\mmail\.ssh\firstvds_kvm
   folder: "~/projects/Lessons/2020/it2020_2sem"
 it2020_python_school:
   connection:
@@ -44,7 +44,7 @@ it2020_python_school:
     host: "tealeaf.su"
     port: 22
     connect_kwargs:
-      key_filename: C:\Users\m\.ssh\firstvds_kvm
+      key_filename: c:\Users\mmail\.ssh\firstvds_kvm
   folder: "~/projects/Lessons/2020/it2020_python_school"
 neytllas:
   connection:
@@ -52,7 +52,7 @@ neytllas:
     host: "tealeaf.su"
     port: 22
     connect_kwargs:
-      key_filename: C:\Users\m\.ssh\firstvds_kvm
+      key_filename: c:\Users\mmail\.ssh\firstvds_kvm
   folder: "~/projects/Lessons/personal/neytllas"
 webpython:
   connection:
@@ -60,7 +60,7 @@ webpython:
     host: "tealeaf.su"
     port: 22
     connect_kwargs:
-      key_filename: C:\Users\m\.ssh\firstvds_kvm
+      key_filename: c:\Users\mmail\.ssh\firstvds_kvm
   folder: "~/projects/Lessons/personal/web_python"
 borsch:
   connection:
@@ -68,7 +68,7 @@ borsch:
     host: "tealeaf.su"
     port: 22
     connect_kwargs:
-      key_filename: C:\Users\m\.ssh\firstvds_kvm
+      key_filename: c:\Users\mmail\.ssh\firstvds_kvm
   folder: "~/projects/Lessons/personal/borsch"
 artem:
   connection:
@@ -76,7 +76,7 @@ artem:
     host: "tealeaf.su"
     port: 22
     connect_kwargs:
-      key_filename: C:\Users\m\.ssh\firstvds_kvm
+      key_filename: c:\Users\mmail\.ssh\firstvds_kvm
   folder: "~/projects/Lessons/personal/artem_python"
 tp2021:
   connection:
@@ -84,7 +84,7 @@ tp2021:
     host: "tealeaf.su"
     port: 22
     connect_kwargs:
-      key_filename: C:\Users\m\.ssh\firstvds_kvm
+      key_filename: c:\Users\mmail\.ssh\firstvds_kvm
   folder: "~/projects/Lessons/2021/tp"
 tp2022:
   connection:
@@ -92,7 +92,7 @@ tp2022:
     host: "tealeaf.su"
     port: 22
     connect_kwargs:
-      key_filename: C:\Users\m\.ssh\firstvds_kvm
+      key_filename: c:\Users\mmail\.ssh\firstvds_kvm
   folder: "~/projects/Lessons/2022/tp"
 web:
   connection:
@@ -100,7 +100,7 @@ web:
     host: "tealeaf.su"
     port: 22
     connect_kwargs:
-      key_filename: C:\Users\m\.ssh\firstvds_kvm
+      key_filename: c:\Users\mmail\.ssh\firstvds_kvm
   folder: "~/projects/Lessons/2021/web_programming"
 kaboom:
   connection:
@@ -108,7 +108,7 @@ kaboom:
     host: "tealeaf.su"
     port: 22
     connect_kwargs:
-      key_filename: C:\Users\m\.ssh\firstvds_kvm
+      key_filename: c:\Users\mmail\.ssh\firstvds_kvm
   folder: "~/projects/Lessons/2021/data_control"
 python2030:
   connection:
@@ -116,7 +116,7 @@ python2030:
     host: "tealeaf.su"
     port: 22
     connect_kwargs:
-      key_filename: C:\Users\m\.ssh\firstvds_kvm
+      key_filename: c:\Users\mmail\.ssh\firstvds_kvm
   folder: "~/projects/Lessons/2022/python_2030"
 python2030_part2:
   connection:
@@ -124,7 +124,7 @@ python2030_part2:
     host: "tealeaf.su"
     port: 22
     connect_kwargs:
-      key_filename: C:\Users\m\.ssh\firstvds_kvm
+      key_filename: C:\Users\mmail\.ssh\firstvds_kvm
   folder: "~/projects/LessonsV2/2023/python_2030"
 2023_operational_systems_2:
   connection:
@@ -132,7 +132,7 @@ python2030_part2:
     host: "tealeaf.su"
     port: 22
     connect_kwargs:
-      key_filename: C:\Users\m\.ssh\firstvds_kvm
+      key_filename: c:\Users\mmail\.ssh\firstvds_kvm
   folder: "~/projects/LessonsV2/2023/operational_systems_2"
 2023_web2030:
   connection:

@@ -79,6 +79,7 @@ export async function getFiles(dir) {
 }
 
 export default function setDefault(obj, prop, deflt) {
+    // @ts-ignore
     return _.has(obj, prop) ? obj[prop] : (obj[prop] = deflt);
 }
 

@@ -7,6 +7,9 @@ import {Task} from "../models/task.entity";
 
 export default class LabRepository {
     static async remove(labId: number) {
+        await dataSource.getRepository(Task).delete({
+            lab_id: labId
+        })
         await dataSource.getRepository(Lab).delete({id: labId})
     }
 

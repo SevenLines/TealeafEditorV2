@@ -1,0 +1,176 @@
+it2020:
+  connection:
+    user: "mick"
+    host: "tealeaf.su"
+    port: 22
+    connect_kwargs:
+      key_filename: C:\Users\m\.ssh\firstvds_kvm
+  folder: "~/projects/Lessons/2020/it2020"
+it2020_python:
+  connection:
+    user: "mick"
+    host: "tealeaf.su"
+    port: 22
+    connect_kwargs:
+      key_filename: C:\Users\m\.ssh\firstvds_kvm
+  folder: "~/projects/Lessons/2020/it2020_python"
+istbp18:
+  connection:
+    user: "mick"
+    host: "tealeaf.su"
+    port: 22
+    connect_kwargs:
+      key_filename: C:\Users\m\.ssh\firstvds_kvm
+  folder: "~/projects/Lessons/2020/istbp18"
+ismb19:
+  connection:
+    user: "mick"
+    host: "tealeaf.su"
+    port: 22
+    connect_kwargs:
+      key_filename: C:\Users\m\.ssh\firstvds_kvm
+  folder: "~/projects/Lessons/2020/ismb19"
+it2020_2sem:
+  connection:
+    user: "mick"
+    host: "tealeaf.su"
+    port: 22
+    connect_kwargs:
+      key_filename: C:\Users\m\.ssh\firstvds_kvm
+  folder: "~/projects/Lessons/2020/it2020_2sem"
+it2020_python_school:
+  connection:
+    user: "mick"
+    host: "tealeaf.su"
+    port: 22
+    connect_kwargs:
+      key_filename: C:\Users\m\.ssh\firstvds_kvm
+  folder: "~/projects/Lessons/2020/it2020_python_school"
+neytllas:
+  connection:
+    user: "mick"
+    host: "tealeaf.su"
+    port: 22
+    connect_kwargs:
+      key_filename: C:\Users\m\.ssh\firstvds_kvm
+  folder: "~/projects/Lessons/personal/neytllas"
+webpython:
+  connection:
+    user: "mick"
+    host: "tealeaf.su"
+    port: 22
+    connect_kwargs:
+      key_filename: C:\Users\m\.ssh\firstvds_kvm
+  folder: "~/projects/Lessons/personal/web_python"
+borsch:
+  connection:
+    user: "mick"
+    host: "tealeaf.su"
+    port: 22
+    connect_kwargs:
+      key_filename: C:\Users\m\.ssh\firstvds_kvm
+  folder: "~/projects/Lessons/personal/borsch"
+artem:
+  connection:
+    user: "mick"
+    host: "tealeaf.su"
+    port: 22
+    connect_kwargs:
+      key_filename: C:\Users\m\.ssh\firstvds_kvm
+  folder: "~/projects/Lessons/personal/artem_python"
+tp2021:
+  connection:
+    user: "mick"
+    host: "tealeaf.su"
+    port: 22
+    connect_kwargs:
+      key_filename: C:\Users\m\.ssh\firstvds_kvm
+  folder: "~/projects/Lessons/2021/tp"
+tp2022:
+  connection:
+    user: "mick"
+    host: "tealeaf.su"
+    port: 22
+    connect_kwargs:
+      key_filename: C:\Users\m\.ssh\firstvds_kvm
+  folder: "~/projects/Lessons/2022/tp"
+web:
+  connection:
+    user: "mick"
+    host: "tealeaf.su"
+    port: 22
+    connect_kwargs:
+      key_filename: C:\Users\m\.ssh\firstvds_kvm
+  folder: "~/projects/Lessons/2021/web_programming"
+kaboom:
+  connection:
+    user: "mick"
+    host: "tealeaf.su"
+    port: 22
+    connect_kwargs:
+      key_filename: C:\Users\m\.ssh\firstvds_kvm
+  folder: "~/projects/Lessons/2021/data_control"
+python2030:
+  connection:
+    user: "mick"
+    host: "tealeaf.su"
+    port: 22
+    connect_kwargs:
+      key_filename: C:\Users\m\.ssh\firstvds_kvm
+  folder: "~/projects/Lessons/2022/python_2030"
+python2030_part2:
+  connection:
+    user: "mick"
+    host: "tealeaf.su"
+    port: 22
+    connect_kwargs:
+      key_filename: C:\Users\m\.ssh\firstvds_kvm
+  folder: "~/projects/LessonsV2/2023/python_2030"
+2023_operational_systems_2:
+  connection:
+    user: "mick"
+    host: "tealeaf.su"
+    port: 22
+    connect_kwargs:
+      key_filename: C:\Users\m\.ssh\firstvds_kvm
+  folder: "~/projects/LessonsV2/2023/operational_systems_2"
+2023_web2030:
+  connection:
+    user: "mick"
+    host: "tealeaf.su"
+    port: 22
+    connect_kwargs:
+      key_filename:c:\Users\mmail\.ssh\firstvds_kvm
+  folder: "~/projects/Lessons/2023/web_2030"
+2023_operational_systems_3:
+  connection:
+    user: "mick"
+    host: "tealeaf.su"
+    port: 22
+    connect_kwargs:
+      key_filename: c:\Users\mmail\.ssh\firstvds_kvm
+  folder: "~/projects/LessonsV2/2023/operational_systems_3"
+2023_python_2030_part1_osen:
+  connection:
+    user: "mick"
+    host: "tealeaf.su"
+    port: 22
+    connect_kwargs:
+      key_filename: c:\Users\mmail\.ssh\firstvds_kvm
+  folder: "~/projects/LessonsV2/2023/python_2030_part1_osen"
+polar:
+  connection:
+    user: "mick"
+    host: "tealeaf.su"
+    port: 22
+    connect_kwargs:
+      key_filename: c:\Users\mmail\.ssh\firstvds_kvm
+  folder: "~/projects/LessonsV2/2023/web_programming"
+2023_masterclass:
+  connection:
+    user: "mick"
+    host: "tealeaf.su"
+    port: 22
+    connect_kwargs:
+      key_filename: c:\Users\mmail\.ssh\firstvds_kvm
+  folder: "~/projects/LessonsV2/2023/masterclasses"

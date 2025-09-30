@@ -174,3 +174,11 @@ polar:
     connect_kwargs:
       key_filename: c:\Users\mmail\.ssh\firstvds_kvm
   folder: "~/projects/LessonsV2/2023/masterclasses"
+wood:
+    connection:
+      user: "mick"
+      host: "tealeaf.su"
+      port: 22
+      connect_kwargs:
+        key_filename: c:\Users\mmail\.ssh\firstvds_kvm
+    folder: "~/projects/LessonsV2/2025/web_programming"

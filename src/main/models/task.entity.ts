@@ -33,6 +33,9 @@ export class Task {
     @Column("text")
     additional_content: string;
 
+    @Column("text", {nullable: true})
+    image: string;
+
     @Column()
     order: number;
 

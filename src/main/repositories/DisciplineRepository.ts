@@ -154,6 +154,7 @@ title: ${lab.title}
             lab_item['alias'] = lab.alias
             lab_item['secret'] = lab.secret
             lab_item['tip'] = lab.tip
+            lab_item['image'] = lab.image
             lab_item['task_done'] = {}
 
             let task_groups: any = {}
@@ -223,6 +224,7 @@ header: <a href="/labs/${lab.alias}.html">${lab.title}</a> / ${task_header}
                     "students": [],
                     "subtasks": t.subtasks,
                     "order": order,
+                    "image": t.image,
                     "show_help_in_modal": t.show_help_in_modal,
                 }
 

@@ -127,6 +127,7 @@ async function onSaveTaskClick(task_form: any, buttonClicked: any) {
         activeTask.value.youtube_link = task_form.youtube_link;
         activeTask.value.show_help_in_modal = task_form.show_help_in_modal;
         activeTask.value.lab_id = task_form.lab_id;
+        activeTask.value.image = task_form.image;
 
         await saveActiveTask(buttonClicked);
     }
@@ -193,108 +194,6 @@ async function onAddTaskClick() {
         lab_id: activeLab.value.id,
     }
 }
-
-
-// public activeTask?: Task = null;
-// public labs!: Array<Lab>;
-// public activeTaskGroup = -1;
-// public newTaskGroupTitle = "";
-//
-// @Watch("$route", {deep: true, immediate: true})
-// onRouteChange() {
-//     this.$store.dispatch("setActiveLabId", this.$route.params.labId)
-// }
-//
-// get tasks() {
-//     return this.$store.state.tasks.filter(x => {
-//         return (this.activeTaskGroup == -1 && x.group_id == null) || x.group_id == this.activeTaskGroup
-//     });
-// }
-//
-// set tasks(tasks) {
-//     this.$store.commit("setTasks", tasks)
-//     this.$store.dispatch("updateTasksOrder", tasks)
-// }
-//
-// get taskGroups() {
-//     return this.$store.state.taskGroups;
-// }
-//
-// set taskGroups(taskGroups) {
-//     this.$store.commit("setTaskGroups", taskGroups)
-//     this.$store.dispatch("updateTaskGroupsOrder", taskGroups)
-// }
-//
-
-//
-
-async function onSubtasksModalOkClicked(subtasks: Array<Subtask>) {
-    console.log(subtasks)
-    // this.activeTask.subtasks = subtasks;
-    // await this.SaveActiveTasks();
-}
-
-
-
-//
-// async onCreateTaskGroup() {
-//     this.newTaskGroupTitle = ""
-// }
-//
-// async onRemoveTaskGroup() {
-//     let has_subtasks = await Task.count({
-//         where: {group_id: this.activeTaskGroup}
-//     })
-//
-//     if (has_subtasks) {
-//         await this.$bvModal.msgBoxOk(
-//             'У группы есть задачи, не могу ее удалить', {
-//                 title: 'Бесполезно',
-//                 size: 'md',
-//                 okVariant: 'info',
-//                 footerClass: 'p-2',
-//                 hideHeaderClose: false,
-//                 centered: true
-//             })
-//         return;
-//     }
-//
-//     let doDelete = await this.$bvModal.msgBoxConfirm(
-//         `Точно удалить группу?`, {
-//             title: 'Подтвердите',
-//             size: 'sm',
-//             buttonSize: 'sm',
-//             okVariant: 'danger',
-//             okTitle: 'Удалить',
-//             cancelTitle: 'НЕЕЕЕТ!!!',
-//             footerClass: 'p-2',
-//             hideHeaderClose: false,
-//             centered: true
-//         })
-//     if (doDelete) {
-//         await TaskGroup.destroy({
-//             where: {
-//                 id: this.activeTaskGroup
-//             }
-//         });
-//         await this.$store.dispatch("fetchTaskGroups")
-//         this.activeTaskGroup = -1
-//     }
-// }
-//
-// async onCreateTaskGroupOkClicked() {
-//     let order = _(this.taskGroups).map((x: TaskGroup) => x.order || 0).max()
-//     let task_group = TaskGroup.build({
-//         lab_id: this.activeLab.id,
-//         title: this.newTaskGroupTitle,
-//         type: this.activeLab.type,
-//         order: order + 1,
-//     })
-//     await task_group.save()
-//     await this.$store.dispatch("fetchTaskGroups")
-//     this.activeTaskGroup = task_group.id
-// }
-//
 
 </script>
 

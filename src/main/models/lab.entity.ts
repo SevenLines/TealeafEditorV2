@@ -50,6 +50,9 @@ export class Lab {
     @Column({nullable: true})
     tip: string;
 
+    @Column({nullable: true, type: 'text'})
+    image: string;
+
     @Column({type: "text"})
     remark: string;
 

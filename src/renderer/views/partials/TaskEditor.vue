@@ -46,6 +46,7 @@ const form = ref<any>({
     visible: null,
     lab_id: null,
     show_help_in_modal: false,
+    image: null,
 })
 
 watch(() => props.task, () => {
@@ -62,6 +63,7 @@ watch(() => props.task, () => {
         visible: props.task ? props.task.visible : null,
         lab_id: props.task ? props.task.lab_id : null,
         show_help_in_modal: props.task ? props.task.show_help_in_modal : null,
+        image: props.task ? props.task.image : null,
     }
 })
 
@@ -143,6 +145,12 @@ function onSaveClick(buttonClicked: any) {
             <div class="col d-flex align-items-center">
                 <div class="flex-shrink-0 mr-2">Кастомный класс:</div>
                 <input type="text" class="form-control" v-model="form.custom_class">
+            </div>
+        </div>
+      <div class="row">
+            <div class="col d-flex align-items-center">
+                <div class="flex-shrink-0 mr-2">Картинка</div>
+                <input type="text" class="form-control" v-model="form.image">
             </div>
         </div>
         <div class="row">

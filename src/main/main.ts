@@ -91,6 +91,7 @@ app.whenReady().then(async () => {
     })
 
     ipcMain.handle("db:connect", async (event, options: Partial<PostgresConnectionOptions>) => {
+        console.log(options)
         dataSource.setOptions(options)
         await dataSource.initialize()
         let status = dataSource.isInitialized
